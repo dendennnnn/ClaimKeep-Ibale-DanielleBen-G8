@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
-{% block title %}Create Account | ClaimKeep{% endblock %}
+{% block title %}Sign In | ClaimKeep{% endblock %}
 
 {% block content %}
-<div class="max-w-lg mx-auto bg-white rounded-xl shadow-sm border border-slate-200 p-8">
-    <h1 class="text-2xl font-bold text-slate-900 mb-1">Create your ClaimKeep Account</h1>
-    <p class="text-sm text-slate-500 mb-6">Organize your purchases, digital receipts, and warranty expiration dates.</p>
+<div class="max-w-md mx-auto bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+    <h1 class="text-2xl font-bold text-slate-900 mb-1">Welcome Back</h1>
+    <p class="text-sm text-slate-500 mb-6">Sign in with your registered email address and password.</p>
 
     <form method="post" novalidate class="space-y-4">
         {% csrf_token %}
@@ -20,14 +20,14 @@
             </div>
         {% endfor %}
 
-        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 rounded-lg transition mt-2">
-            Register Account
+        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 rounded-lg transition">
+            Log In
         </button>
     </form>
 
     <p class="text-center text-sm text-slate-600 mt-6">
-        Already have an account?
-        <a href="{% url 'accounts:login' %}" class="text-indigo-600 font-semibold hover:underline">Sign in here</a>
+        New to ClaimKeep?
+        <a href="{% url 'accounts:register' %}" class="text-indigo-600 font-semibold hover:underline">Create an account</a>
     </p>
 </div>
 {% endblock %}
