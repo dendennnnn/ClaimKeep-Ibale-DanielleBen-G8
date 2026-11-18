@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Create Account | ClaimKeep{% endblock %}
+
+{% block content %}
+<div class="max-w-lg mx-auto bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+    <h1 class="text-2xl font-bold text-slate-900 mb-1">Create your ClaimKeep Account</h1>
+    <p class="text-sm text-slate-500 mb-6">Organize your purchases, digital receipts, and warranty expiration dates.</p>
+
+    <form method="post" novalidate class="space-y-4">
+        {% csrf_token %}
+        {% for field in form %}
+            <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">
+                    {{ field.label }}
+                </label>
+                {{ field }}
+                {% if field.errors %}
+                    <p class="text-xs text-red-600 mt-1">{{ field.errors|striptags }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 rounded-lg transition mt-2">
+            Register Account
+        </button>
+    </form>
+
+    <p class="text-center text-sm text-slate-600 mt-6">
+        Already have an account?
+        <a href="{% url 'accounts:login' %}" class="text-indigo-600 font-semibold hover:underline">Sign in here</a>
+    </p>
+</div>
+{% endblock %}

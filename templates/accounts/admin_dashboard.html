@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}System Admin Dashboard | ClaimKeep{% endblock %}
+
+{% block content %}
+<div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div>
+        <h1 class="text-2xl font-bold text-slate-900">System Administrator Console</h1>
+        <p class="text-sm text-slate-500">Global Category Governance &amp; Registered Account Overview</p>
+    </div>
+    <a href="/admin/" class="inline-flex items-center px-4 py-2 bg-indigo-600 rounded-lg text-sm font-semibold text-white hover:bg-indigo-700">
+        Open Django Admin
+    </a>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+        <p class="text-xs font-semibold uppercase text-slate-400">Total Registered Users</p>
+        <p class="text-3xl font-bold text-slate-900 mt-2">{{ total_users }}</p>
+    </div>
+    <div class="bg-white p-5 rounded-xl border border-indigo-200 shadow-sm">
+        <p class="text-xs font-semibold uppercase text-indigo-600">Consumer Accounts</p>
+        <p class="text-3xl font-bold text-indigo-700 mt-2">{{ consumer_count }}</p>
+    </div>
+    <div class="bg-white p-5 rounded-xl border border-purple-200 shadow-sm">
+        <p class="text-xs font-semibold uppercase text-purple-600">System Administrators</p>
+        <p class="text-3xl font-bold text-purple-700 mt-2">{{ admin_count }}</p>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-base font-bold text-slate-800 mb-3">Global System-Default Categories</h2>
+        <p class="text-xs text-slate-500 mb-4">Predefined product categories available to all Consumers (CATEGORIES.user_id IS NULL).</p>
+        <ul class="divide-y divide-slate-100 text-sm">
+            {% for cat in default_categories %}
+                <li class="py-2.5 flex items-center justify-between">
+                    <span class="font-medium text-slate-700">{{ cat }}</span>
+                    <span class="text-xs px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded">Global Default</span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-base font-bold text-slate-800 mb-3">Recently Registered Users</h2>
+        <div class="divide-y divide-slate-100 text-sm">
+            {% for u in recent_users %}
+                <div class="py-2.5 flex items-center justify-between">
+                    <div>
+                        <p class="font-semibold text-slate-800">{{ u.full_name }}</p>
+                        <p class="text-xs text-slate-500">{{ u.email }}</p>
+                    </div>
+                    <span class="text-xs px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-medium">
+                        {{ u.get_role_display }}
+                    </span>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

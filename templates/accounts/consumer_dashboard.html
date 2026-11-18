@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Consumer Dashboard | ClaimKeep{% endblock %}
+
+{% block content %}
+<div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div>
+        <h1 class="text-2xl font-bold text-slate-900">Hello, {{ user.full_name }}</h1>
+        <p class="text-sm text-slate-500">Consumer Warranty &amp; Purchase Summary Dashboard</p>
+    </div>
+    <a href="{% url 'accounts:profile' %}" class="inline-flex items-center px-4 py-2 bg-white border border-slate-300 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-50">
+        Manage Profile
+    </a>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+        <p class="text-xs font-semibold uppercase text-slate-400">Total Purchases</p>
+        <p class="text-3xl font-bold text-slate-900 mt-2">{{ total_purchases }}</p>
+        <p class="text-xs text-slate-500 mt-1">Total Spent: &#8369;{{ total_spending }}</p>
+    </div>
+    <div class="bg-white p-5 rounded-xl border border-emerald-200 shadow-sm">
+        <p class="text-xs font-semibold uppercase text-emerald-600">Active Warranties</p>
+        <p class="text-3xl font-bold text-emerald-700 mt-2">{{ active_warranties }}</p>
+        <p class="text-xs text-slate-500 mt-1">&gt; 30 days remaining (BR-09)</p>
+    </div>
+    <div class="bg-white p-5 rounded-xl border border-amber-200 shadow-sm">
+        <p class="text-xs font-semibold uppercase text-amber-600">Expiring Soon</p>
+        <p class="text-3xl font-bold text-amber-700 mt-2">{{ expiring_soon_warranties }}</p>
+        <p class="text-xs text-slate-500 mt-1">&le; 30 days remaining (BR-09)</p>
+    </div>
+    <div class="bg-white p-5 rounded-xl border border-rose-200 shadow-sm">
+        <p class="text-xs font-semibold uppercase text-rose-600">Expired Warranties</p>
+        <p class="text-3xl font-bold text-rose-700 mt-2">{{ expired_warranties }}</p>
+        <p class="text-xs text-slate-500 mt-1">Past coverage end date</p>
+    </div>
+</div>
+
+<div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+    <h2 class="text-base font-bold text-slate-800 mb-2">Consumer Quick Actions</h2>
+    <p class="text-sm text-slate-600 mb-4">
+        Your personal repository is isolated to your account (BR-02). Purchase, Receipt, and Warranty CRUD modules will mount here in the next phase.
+    </p>
+    <div class="flex flex-wrap gap-3 text-sm">
+        <span class="px-3.5 py-2 rounded-lg bg-slate-100 text-slate-700 font-medium">+ Record Purchase (Upcoming)</span>
+        <span class="px-3.5 py-2 rounded-lg bg-slate-100 text-slate-700 font-medium">+ Upload Receipt (Upcoming)</span>
+        <span class="px-3.5 py-2 rounded-lg bg-slate-100 text-slate-700 font-medium">Custom Categories (Upcoming)</span>
+    </div>
+</div>
+{% endblock %}

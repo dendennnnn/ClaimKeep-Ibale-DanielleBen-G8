@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ClaimKeep — Purchase, Receipt & Warranty Tracker{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+    <nav class="bg-slate-900 text-white shadow-md">
+        <div class="max-w-6xl mx-auto px-4 py-3.5 flex items-center justify-between">
+            <a href="{% url 'accounts:dashboard_redirect' %}" class="flex items-center space-x-2">
+                <span class="text-xl font-bold tracking-tight text-indigo-400">ClaimKeep</span>
+                {% if user.is_authenticated %}
+                    <span class="text-xs px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">
+                        {{ user.get_role_display }}
+                    </span>
+                {% endif %}
+            </a>
+
+            <div class="flex items-center space-x-5 text-sm font-medium">
+                {% if user.is_authenticated %}
+                    {% if user.role == 'ADMIN' %}
+                        <a href="{% url 'accounts:admin_dashboard' %}" class="hover:text-indigo-300 transition">Admin Dashboard</a>
+                    {% else %}
+                        <a href="{% url 'accounts:consumer_dashboard' %}" class="hover:text-indigo-300 transition">My Warranties</a>
+                    {% endif %}
+                    <a href="{% url 'accounts:profile' %}" class="hover:text-indigo-300 transition">My Profile</a>
+                    <form action="{% url 'accounts:logout' %}" method="post" class="inline">
+                        {% csrf_token %}
+                        <button type="submit" class="bg-rose-600 hover:bg-rose-700 text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold transition">
+                            Logout
+                        </button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'accounts:login' %}" class="hover:text-indigo-300 transition">Login</a>
+                    <a href="{% url 'accounts:register' %}" class="bg-indigo-600 hover:bg-indigo-500 px-4 py-1.5 rounded-lg text-white font-semibold transition">
+                        Register
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-8">
+        {% if messages %}
+            <div class="space-y-3 mb-6">
+                {% for message in messages %}
+                    <div class="p-4 rounded-lg border text-sm font-medium {{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+        ClaimKeep: Personal Purchase, Receipt, and Warranty Tracker &bull; CSIT327 IM2 Project
+    </footer>
+</body>
+</html>
